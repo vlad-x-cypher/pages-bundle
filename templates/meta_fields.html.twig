@@ -1,0 +1,13 @@
+{% if meta is defined %}
+   {% if meta.title %}
+       <meta name="title" content="{{ meta.title|escape }}"> 
+   {% endif %} 
+   {% if meta.description %}
+       <meta name="description" content="{{ meta.description|escape }}"> 
+   {% endif %} 
+   {% for prop, content in meta.properties %}
+        {% if content != "" %}
+           <meta property="{{ prop }}" content="{{ prop == 'og:image' ? content : content|escape }}"> 
+        {% endif %}
+   {% endfor %}
+{% endif %}

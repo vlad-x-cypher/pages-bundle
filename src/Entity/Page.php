@@ -18,6 +18,7 @@ class Page implements PageInterface
     public function __construct()
     {
         $this->initMeta();
+        $this->initChildren();
     }
 
     public function setMetaOgImageFile(?File $metaOgImageFile): static
@@ -29,5 +30,10 @@ class Page implements PageInterface
     public function getMetaOgImageFile(): ?File
     {
         return $this->meta->getOgImageFile();
+    }
+
+    public function __toString(): string
+    {
+        return $this->getTitle();
     }
 }

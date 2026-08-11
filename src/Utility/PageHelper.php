@@ -7,8 +7,9 @@ use VladX\PagesBundle\Entity\PageInterface;
 
 class PageHelper
 {
-    public function __construct(private readonly UploaderHelper $uploaderHelper)
-    {
+    public function __construct(
+        private readonly UploaderHelper $uploaderHelper
+    ) {
     }
 
     /**

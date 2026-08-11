@@ -29,7 +29,14 @@ trait MetaFieldsTrait
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $metaUpdatedAt = null;
 
-    #[Vich\UploadableField(mapping: "metaimage", fileNameProperty: "ogImage.name", size: "ogImage.size", mimeType: "ogImage.mimeType", originalName: "ogImage.originalName", dimensions: "ogImage.dimensions")]
+    #[Vich\UploadableField(
+        mapping: "metaimage",
+        fileNameProperty: "ogImage.name",
+        size: "ogImage.size",
+        mimeType: "ogImage.mimeType",
+        originalName: "ogImage.originalName",
+        dimensions: "ogImage.dimensions"
+    )]
     #[Assert\File(
         maxSize: "5M",
         mimeTypes: ['image/jpeg', 'image/jpg', 'image/png'],

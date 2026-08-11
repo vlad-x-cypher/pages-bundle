@@ -5,9 +5,7 @@ Symfony bundle providing reusable Page + Meta (SEO/OpenGraph) entities, Vich upl
 ## Key facts
 
 - **Namespace:** `VladX\PagesBundle`, PSR-4 mapped to `src/`
-- **Service config:** `config/services.php` (PHP, not YAML). Only registers `PageHelper` with autowire.
 - **DI extension:** `PagesExtension` also prepends Twig namespace (`@vxpgs`) and Vich `metaimage` mapping.
-- **No CRUD controllers** in this bundle — it provides `MetaFields::getSeoTab()` / `getMetaFields()` helpers and `VichImageField` for use in the app's own EasyAdmin controllers.
 - **No `declare(strict_types=1)`** anywhere in the codebase.
 
 ## Entities
@@ -34,3 +32,16 @@ Symfony bundle providing reusable Page + Meta (SEO/OpenGraph) entities, Vich upl
 - Upload destination: `%kernel.project_dir%/public/images/meta`
 - Namer: `SmartUniqueNamer`
 - Validation: max 5M, JPEG/PNG only (on `Meta` embeddable)
+
+## Page templates
+
+For each page entity we can assign a template through bundle configuration.
+
+Example of configuration `config/packages/pages.yaml`
+```yaml
+pages:
+    templates:
+        Homepage: # Template name 
+            path: page/index.html.twig # Template path to twig template 
+            form: App\Form\HomepageType # Custom form for templateData. Optional field
+```

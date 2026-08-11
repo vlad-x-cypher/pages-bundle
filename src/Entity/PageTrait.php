@@ -31,6 +31,14 @@ trait PageTrait
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
     private Collection $children;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $template = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?array $templateData = null;
+
+    private ?array $virtualTemplate = [];
+
     public function initMeta(): void
     {
         $this->meta = new Meta();
@@ -132,12 +140,52 @@ trait PageTrait
         return $this;
     }
 
-    public function setMeta(MetaInterface $meta): void
+    public function setMeta(MetaInterface $meta): static
     {
         $this->meta = $meta;
+        return $this;
     }
     public function getMeta(): MetaInterface
     {
         return $this->meta;
+    }
+
+    public function setTemplate(?string $template): static
+    {
+        $this->template = $template;
+        return $this;
+    }
+
+    public function getTemplate(): ?string
+    {
+        return $this->template;
+    }
+
+    public function setTemplateData(?array $templateData): static
+    {
+        $this->templateData = $templateData;
+        return $this;
+    }
+
+    public function getTemplateData(): ?array
+    {
+        return $this->templateData;
+    }
+    public function setVirtualTemplate(?array $virtualTemplate): static
+    {
+        if (!empty($virtualTemplate['templateData']) && $virtualTemplate['template'] == $this->getTemplate()) {
+            $this->setTemplateData($virtualTemplate['templateData']);
+        }
+        $this->setTemplate($virtualTemplate['template'] ?? null);
+
+        return $this;
+    }
+
+    public function getVirtualTemplate(): ?array
+    {
+        return [
+            'template' => $this->getTemplate(),
+            'templateData' => $this->getTemplateData(),
+        ];
     }
 }

@@ -1,6 +1,8 @@
 {
     "name": "vlad-x/pages-bundle",
     "type": "symfony-bundle",
+    "description": "Pages bundle for symfony and easy admin",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "VladX\\PagesBundle\\": "src/"

@@ -1,6 +1,6 @@
 {% if meta is defined %}
    {% if meta.title %}
-       <meta name="title" content="{{ meta.title|escape }}"> 
+        <title>{{ meta.title|default('')|escape }}</title>
    {% endif %} 
    {% if meta.description %}
        <meta name="description" content="{{ meta.description|escape }}"> 

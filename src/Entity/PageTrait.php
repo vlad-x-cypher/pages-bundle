@@ -5,6 +5,7 @@ namespace VladX\PagesBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use VladX\PagesBundle\Dto\TemplateDto;
 
 trait PageTrait
 {
@@ -37,7 +38,7 @@ trait PageTrait
     #[ORM\Column(nullable: true)]
     private ?array $templateData = null;
 
-    private ?array $virtualTemplate = [];
+    private ?TemplateDto $virtualTemplate = null;
 
     public function initMeta(): void
     {
@@ -171,21 +172,22 @@ trait PageTrait
     {
         return $this->templateData;
     }
-    public function setVirtualTemplate(?array $virtualTemplate): static
+
+    public function setVirtualTemplate(TemplateDto $virtualTemplate): static
     {
-        if (!empty($virtualTemplate['templateData']) && $virtualTemplate['template'] == $this->getTemplate()) {
-            $this->setTemplateData($virtualTemplate['templateData']);
+        if (!empty($virtualTemplate?->template) && $virtualTemplate?->template == $this->getTemplate()) {
+            $this->setTemplateData($virtualTemplate->templateData);
         }
-        $this->setTemplate($virtualTemplate['template'] ?? null);
+        $this->setTemplate($virtualTemplate?->template ?? null);
 
         return $this;
     }
 
-    public function getVirtualTemplate(): ?array
+    public function getVirtualTemplate(): TemplateDto
     {
-        return [
-            'template' => $this->getTemplate(),
-            'templateData' => $this->getTemplateData(),
-        ];
+        return new TemplateDto(
+            template: $this->getTemplate(),
+            data: $this->getTemplateData(),
+        );
     }
 }

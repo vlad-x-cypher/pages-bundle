@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfonycasts\DynamicForms\DependentField;
 use Symfonycasts\DynamicForms\DynamicFormBuilder;
+use VladX\PagesBundle\Dto\TemplateDto;
 use VladX\PagesBundle\Utility\PagesTemplates;
 
 class TemplateType extends AbstractType
@@ -45,6 +46,7 @@ class TemplateType extends AbstractType
     {
         $resolver->setDefaults([
             'allow_extra_fields' => true,
+            'data_class' => TemplateDto::class,
         ]);
     }
 }

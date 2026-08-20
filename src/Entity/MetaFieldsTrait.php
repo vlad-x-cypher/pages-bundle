@@ -12,22 +12,22 @@ use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 trait MetaFieldsTrait
 {
     #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $metaTitle = "";
+    protected ?string $metaTitle = "";
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $metaDescription = "";
+    protected ?string $metaDescription = "";
 
     #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $metaKeywords = "";
+    protected ?string $metaKeywords = "";
 
     #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $ogTitle = "";
+    protected ?string $ogTitle = "";
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $ogDescription = "";
+    protected ?string $ogDescription = "";
 
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $metaUpdatedAt = null;
+    protected ?\DateTimeImmutable $metaUpdatedAt = null;
 
     #[Vich\UploadableField(
         mapping: "metaimage",
@@ -45,10 +45,10 @@ trait MetaFieldsTrait
     private ?File $ogImageFile = null;
 
     #[ORM\Embedded(class: EmbeddedFile::class)]
-    private ?EmbeddedFile $ogImage = null;
+    protected ?EmbeddedFile $ogImage = null;
 
     #[ORM\Column(type: Types::JSON)]
-    private array $metaProperties = [];
+    protected array $metaProperties = [];
 
     public function initMeta(): void
     {

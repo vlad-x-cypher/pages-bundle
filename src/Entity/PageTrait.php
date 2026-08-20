@@ -12,31 +12,31 @@ trait PageTrait
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    protected ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $title = null;
+    protected ?string $title = null;
 
     #[ORM\Column(length: 255, unique: true, nullable: false)]
-    private string $slug = "";
+    protected string $slug = "";
 
     #[ORM\Embedded(class: Meta::class)]
-    private MetaInterface $meta;
+    protected MetaInterface $meta;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
-    private ?self $parent = null;
+    protected ?self $parent = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $fullSlug = null;
+    protected ?string $fullSlug = null;
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
-    private Collection $children;
+    protected Collection $children;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $template = null;
+    protected ?string $template = null;
 
     #[ORM\Column(nullable: true)]
-    private ?array $templateData = null;
+    protected ?array $templateData = null;
 
     private ?TemplateDto $virtualTemplate = null;
 

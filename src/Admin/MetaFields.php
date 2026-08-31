@@ -2,6 +2,7 @@
 
 namespace VladX\PagesBundle\Admin;
 
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
@@ -34,11 +35,25 @@ class MetaFields
                 ->setHelp('description used to generate snippet during share social media (X, Facebook, etc.). By default equals meta description')
                 ->hideOnIndex(),
             VichImageField::new('metaOgImageFile', 'Opengraph image (Optional)')->hideOnIndex()
-                ->setHelp('By default image generated from thumbnail is used as og:image meta tag. You can override it by uploading another image. 1200x630 pixels size is recommended by Facebook'),
+                ->setHelp('1200x630 pixels size is recommended by Facebook'),
             CollectionField::new('meta.metaProperties')->hideOnIndex()
                 ->setRequired(false)
                 ->setEntryType(MetaPropertyType::class)
             ,
+            FormField::addFieldset('Robots tag'),
+            ChoiceField::new('meta.robots')
+                ->setHelp('More about robots meta tag <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meta/name/robots" target="_blank">link</a>')
+                ->allowMultipleChoices(true)->setChoices([
+                    'index' => 'index',
+                    'noindex' => 'noindex',
+                    'follow' => 'follow',
+                    'nofollow' => 'nofollow',
+                    'none' => 'none',
+                    'noarchive' => 'noarchive',
+                    'nosnippet' => 'nosnippet',
+                    'noimageindex' => 'noimageindex',
+                    'nocache' => 'nocache',
+                ]),
         ];
     }
 }

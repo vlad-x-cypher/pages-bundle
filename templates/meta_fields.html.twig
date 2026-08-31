@@ -5,6 +5,9 @@
    {% if meta.description %}
        <meta name="description" content="{{ meta.description|escape }}"> 
    {% endif %} 
+   {% if meta.robots is defined and meta.robots|length > 0%}
+       <meta name="robots" content="{{ meta.robots|join(',') }}"> 
+   {% endif %} 
    {% for prop, content in meta.properties %}
         {% if content != "" %}
            <meta property="{{ prop }}" content="{{ prop == 'og:image' ? content : content|escape }}"> 

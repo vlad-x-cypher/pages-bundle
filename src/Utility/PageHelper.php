@@ -21,6 +21,7 @@ class PageHelper
             'meta' => [
                 'title' => $page->getMeta()->getMetaTitle() ?: $page->getTitle(),
                 'description' => $page->getMeta()->getMetaDescription(),
+                'robots' => $page->getMeta()->getRobots() ?? [],
                 'properties' => array_merge([
                     'og:title' => $page->getMeta()->getOgTitle() ?: ($page->getMeta()->getMetaTitle() ?: $page->getTitle()),
                     'og:description' => $page->getMeta()->getOgDescription() ?: $page->getMeta()->getMetaDescription(),

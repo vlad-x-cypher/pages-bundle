@@ -20,5 +20,6 @@ interface MetaInterface
     public function setMetaProperties(array $arr = []): static;
     /** @return array<int, array{property: string, content: string}> */
     public function getMetaProperties(): array;
-
+    /** @return ?array<int, string> */
+    public function getRobots(): ?array;
 }

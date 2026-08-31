@@ -50,38 +50,45 @@ trait MetaFieldsTrait
     #[ORM\Column(type: Types::JSON)]
     private array $metaProperties = [];
 
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    private ?array $robots = [];
+
     public function initMeta(): void
     {
         $this->ogImage = new EmbeddedFile();
     }
 
-    public function setMetaTitle(?string $metaTitle): void
+    public function setMetaTitle(?string $metaTitle): static
     {
         $this->metaTitle = $metaTitle;
+        return $this;
     }
     public function getMetaTitle(): ?string
     {
         return $this->metaTitle;
     }
-    public function setMetaDescription(?string $metaDescription): void
+    public function setMetaDescription(?string $metaDescription): static
     {
         $this->metaDescription = $metaDescription;
+        return $this;
     }
     public function getMetaDescription(): ?string
     {
         return $this->metaDescription;
     }
-    public function setMetaKeywords(?string $metaKeywords): void
+    public function setMetaKeywords(?string $metaKeywords): static
     {
         $this->metaKeywords = $metaKeywords;
+        return $this;
     }
     public function getMetaKeywords(): ?string
     {
         return $this->metaKeywords;
     }
-    public function setOgTitle(?string $ogTitle): void
+    public function setOgTitle(?string $ogTitle): static
     {
         $this->ogTitle = $ogTitle;
+        return $this;
     }
     public function getOgTitle(): ?string
     {
@@ -99,25 +106,28 @@ trait MetaFieldsTrait
     {
         return $this->ogImageFile;
     }
-    public function setOgImage(?EmbeddedFile $ogImage): void
+    public function setOgImage(?EmbeddedFile $ogImage): static
     {
         $this->ogImage = $ogImage;
+        return $this;
     }
     public function getOgImage(): ?EmbeddedFile
     {
         return $this->ogImage;
     }
-    public function setOgDescription(?string $ogDescription): void
+    public function setOgDescription(?string $ogDescription): static
     {
         $this->ogDescription = $ogDescription;
+        return $this;
     }
     public function getOgDescription(): ?string
     {
         return $this->ogDescription;
     }
-    public function setMetaUpdatedAt(?\DateTimeImmutable $metaUpdatedAt): void
+    public function setMetaUpdatedAt(?\DateTimeImmutable $metaUpdatedAt): static
     {
         $this->metaUpdatedAt = $metaUpdatedAt;
+        return $this;
     }
     public function getMetaUpdatedAt(): ?\DateTimeImmutable
     {
@@ -133,5 +143,14 @@ trait MetaFieldsTrait
     public function getMetaProperties(): array
     {
         return $this->metaProperties;
+    }
+    public function getRobots(): ?array
+    {
+        return $this->robots;
+    }
+    public function setRobots(?array $robots): static
+    {
+        $this->robots = $robots;
+        return $this;
     }
 }

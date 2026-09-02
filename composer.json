@@ -20,6 +20,7 @@
     "require": {
         "php": ">=8.1|>=8.2|>=8.3",
         "easycorp/easyadmin-bundle": "^5.0",
+        "presta/sitemap-bundle": "^4.3",
         "symfonycasts/dynamic-forms": "^0.2.0",
         "vich/uploader-bundle": "^2.9"
     }

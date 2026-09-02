@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use VladX\PagesBundle\Entity\PageInterface;
+use VladX\PagesBundle\Form\SitemapType;
 use VladX\PagesBundle\Form\TemplateType;
 use VladX\PagesBundle\Utility\PagesTemplates;
 
@@ -59,6 +60,10 @@ abstract class PageCrudController extends AbstractCrudController
             ;
         }
         yield from MetaFields::getSeoTab();
+        yield FormField::addTab('Sitemap');
+        yield SitemapField::new('sitemapConfig')
+            ->onlyOnForms()
+        ;
     }
 
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void

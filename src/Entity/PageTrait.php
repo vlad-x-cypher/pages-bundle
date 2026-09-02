@@ -5,6 +5,7 @@ namespace VladX\PagesBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use VladX\PagesBundle\Dto\SitemapSettingsDto;
 use VladX\PagesBundle\Dto\TemplateDto;
 
 trait PageTrait
@@ -37,6 +38,9 @@ trait PageTrait
 
     #[ORM\Column(nullable: true)]
     private ?array $templateData = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?array $sitemapConfig = null;
 
     private ?TemplateDto $virtualTemplate = null;
 
@@ -189,5 +193,17 @@ trait PageTrait
             template: $this->getTemplate(),
             data: $this->getTemplateData(),
         );
+    }
+    public function getSitemapConfig(): ?array
+    {
+        if (!$this->sitemapConfig) {
+            return (new SitemapSettingsDto())->toArray();
+        }
+        return $this->sitemapConfig;
+    }
+    public function setSitemapConfig(?array $sitemapConfig): static
+    {
+        $this->sitemapConfig = $sitemapConfig;
+        return $this;
     }
 }

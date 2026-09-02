@@ -16,4 +16,5 @@ interface PageInterface
     public function getMeta(): MetaInterface;
     public function getTemplate(): ?string;
     public function getTemplateData(): ?array;
+    public function getSitemapConfig(): ?array;
 }

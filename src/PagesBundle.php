@@ -6,6 +6,7 @@ use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+use VladX\PagesBundle\EventListener\ClassMetadataListener;
 
 class PagesBundle extends AbstractBundle
 {
@@ -67,6 +68,7 @@ class PagesBundle extends AbstractBundle
             ->set('VladX\PagesBundle\Utility\PageHelper')->autowire(true)
             ->set('VladX\PagesBundle\Utility\PagesTemplates')->args([$config['templates']])->autowire(true)
             ->set('VladX\PagesBundle\Form\TemplateType')->autowire(true)->tag('form.type')
+            ->set(ClassMetadataListener::class)->autoconfigure()
         ;
     }
 }

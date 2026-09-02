@@ -24,14 +24,12 @@ trait PageTrait
     #[ORM\Embedded(class: Meta::class)]
     private MetaInterface $meta;
 
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
-    private ?self $parent = null;
+    protected ?self $parent = null;
+
+    protected Collection $children;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $fullSlug = null;
-
-    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
-    private Collection $children;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $template = null;
@@ -194,6 +192,7 @@ trait PageTrait
             data: $this->getTemplateData(),
         );
     }
+
     public function getSitemapConfig(): ?array
     {
         if (!$this->sitemapConfig) {
@@ -201,6 +200,7 @@ trait PageTrait
         }
         return $this->sitemapConfig;
     }
+
     public function setSitemapConfig(?array $sitemapConfig): static
     {
         $this->sitemapConfig = $sitemapConfig;

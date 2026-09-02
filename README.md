@@ -83,6 +83,30 @@ class HomePage extends Page
 
 For more info, check out the official [Doctrine documentation](https://www.doctrine-project.org/projects/doctrine-orm/en/3.6/tutorials/override-field-association-mappings-in-subclasses.html)
 
+#### 2.1 Self Nesting
+
+`VladX\PagesBundle\Entity\Page` mapped supperclass contains unmapped parent/children fields. To enable entity self nesting use `VladX\PagesBundle\Attributes\Nestable` Attribute. For example:
+
+```php
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use VladX\PagesBundle\Entity\Page;
+use VladX\PagesBundle\Attributes\Nestable;
+
+#[ORM\Entity]
+#[Nestable]
+class NestablePage extends Page
+{
+}
+```
+
+Create migration and apply it:
+```php
+php bin/console doctrine:migrations:diff
+php bin/console doctrine:migrations:migrate
+```
+
 ### 3. Create the EasyAdmin CRUD controller
 
 Extend the abstract `PageCrudController` — it wires the general fields, the template tab, and the SEO tab:

@@ -11,8 +11,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use ReflectionClass;
+use VladX\PagesBundle\Attributes\Nestable;
 use VladX\PagesBundle\Entity\PageInterface;
-use VladX\PagesBundle\Form\SitemapType;
 use VladX\PagesBundle\Form\TemplateType;
 use VladX\PagesBundle\Utility\PagesTemplates;
 
@@ -40,13 +41,22 @@ abstract class PageCrudController extends AbstractCrudController
         array_push($this->generalFields, ...$fields);
     }
 
+    public function isNestable(): bool
+    {
+        $ref = new ReflectionClass($this::getEntityFqcn());
+        $atts = $ref->getAttributes(Nestable::class);
+        return empty($atts) ? false : true;
+    }
+
     public function configureFields(string $pageName): iterable
     {
         yield IdField::new('id')->hideOnForm();
         yield FormField::addTab('General');
         yield TextField::new('title');
         yield SlugField::new('slug')->setTargetFieldName('title');
-        yield AssociationField::new('parent');
+        if ($this->isNestable()) {
+            yield AssociationField::new('parent');
+        }
         if (count($this->generalFields) > 0) {
             yield from $this->generalFields;
         }
@@ -68,15 +78,19 @@ abstract class PageCrudController extends AbstractCrudController
 
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
-        $entityInstance->computeFullSlug();
+        if ($this->isNestable()) {
+            $entityInstance->computeFullSlug();
+        }
 
         parent::persistEntity($entityManager, $entityInstance);
     }
 
     public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
-        $entityInstance->computeFullSlug();
-        $entityInstance->cascadeFullSlug();
+        if ($this->isNestable()) {
+            $entityInstance->computeFullSlug();
+            $entityInstance->cascadeFullSlug();
+        }
         parent::updateEntity($entityManager, $entityInstance);
     }
 }
